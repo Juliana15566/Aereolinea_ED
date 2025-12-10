@@ -1,12 +1,7 @@
-import Controlador.GestorVuelo;
 import Modelo.Historial;
-import Modelo.Vuelo;
 import Vista.GestionReserva;
 import Vista.GestionPasajero;
 import Vista.GestionVuelo;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -86,10 +81,5 @@ public class Main {
                 System.out.println("Por favor ingrese un número válido.");
             }
         }
-    }
-
-    private static void pausar() {
-        System.out.println("\nPresione ENTER para continuar...");
-        scanner.nextLine();
     }
 }
