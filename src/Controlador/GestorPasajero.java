@@ -28,13 +28,26 @@ public class GestorPasajero {
     }
 
     //busco al pasajero por el documento, tengo que validar el documento antes de mandarlo a buscar
-    public Pasajero buscarPorPasaporte(String documento) {
+    public Pasajero buscarPorPasaporte(String pasaporte) {
         for (Pasajero p : listaPasajeros) {
-            if (p.getpasaporte().equals(documento)) {
+            if (p.getpasaporte().equals(pasaporte)) {
                 return p;
             }
         }
         return null; // No encontrado
+
+        
+    }
+
+    public Pasajero buscarPorPasaporte_recursivo(String pasaporte, int posicion) {
+        Pasajero pas = listaPasajeros.get(posicion);
+        if (posicion >= listaPasajeros.size()) {
+            return null;
+        }
+        if (pas.getpasaporte().equals(pasaporte)) {
+            return pas;
+        }
+        return buscarPorPasaporte_recursivo(pasaporte, posicion + 1);
     }
 
     //busco al pasajero por el nombre, tengo que estandarizar el nombre antes de mandarlo a buscar
@@ -46,6 +59,19 @@ public class GestorPasajero {
         }
         return null; // No encontrado
     }
+
+    public List<Pasajero> buscarPorNombre_recursivo(String nombre, int posicion, List<Pasajero> pasajerosPorNombre) {
+        Pasajero pas = listaPasajeros.get(posicion);
+        if (posicion >= listaPasajeros.size()) {
+            return pasajerosPorNombre;
+        }
+        if (pas.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+            pasajerosPorNombre.add(pas);
+        }
+
+        return buscarPorNombre_recursivo(nombre, posicion + 1, pasajerosPorNombre);
+    }
+
 
     //retorno la lista de pasajeros
     public List<Pasajero> getListaPasajeros() {

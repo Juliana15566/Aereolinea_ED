@@ -37,6 +37,17 @@ public class GestorVuelo {
         return null;
     }
 
+    public Vuelo buscarPorCodigo_recursivo(String codigo, int posicion) {
+        Vuelo vue = listaVuelos.get(posicion);
+        if (posicion >= listaVuelos.size()) {
+            return null;
+        }
+        if (vue.getCodigo().equalsIgnoreCase(codigo)) {
+            return vue;
+        }
+        return buscarPorCodigo_recursivo(codigo, posicion + 1);
+    }
+
     //buscar por origen
     public List<Vuelo> buscarPorOrigen(String origen) {
         List<Vuelo> resultados = new ArrayList<>();
@@ -48,6 +59,20 @@ public class GestorVuelo {
         }
 
         return resultados;
+    }
+
+    public List<Vuelo> buscarPorOrigen_recursivo(String origen, int posicion, List<Vuelo> vuelosPorOrigen) {
+        if (posicion >= listaVuelos.size()) {
+            return vuelosPorOrigen;
+        }
+
+        Vuelo vue = listaVuelos.get(posicion);
+
+        if (vue.getOrigen().equals(origen)) {
+            vuelosPorOrigen.add(vue);
+        }
+
+        return buscarPorOrigen_recursivo(origen, posicion + 1, vuelosPorOrigen);
     }
 
     //Buscar por destino
@@ -63,6 +88,20 @@ public class GestorVuelo {
         return resultados;
     }
 
+    public List<Vuelo> buscarPorDestino_recursivo(String origen, int posicion, List<Vuelo> vuelosPorDestino) {
+        if (posicion >= listaVuelos.size()) {
+            return vuelosPorDestino;
+        }
+
+        Vuelo vue = listaVuelos.get(posicion);
+
+        if (vue.getOrigen().equals(origen)) {
+            vuelosPorDestino.add(vue);
+        }
+
+        return buscarPorOrigen_recursivo(origen, posicion + 1, vuelosPorDestino);
+    }
+
     //Buscar por fecha de salida
     public List<Vuelo> buscarPorFechaSalida(LocalDate fecha) {
         List<Vuelo> resultados = new ArrayList<>();
@@ -75,6 +114,20 @@ public class GestorVuelo {
 
         return resultados;
     }
+
+    public List<Vuelo> buscarPorFecha_recursivo(LocalDate fecha, int posicion, List<Vuelo> vuelosPorFecha) {
+    if (posicion >= listaVuelos.size()) {
+        return vuelosPorFecha;
+    }
+
+    Vuelo vue = listaVuelos.get(posicion);
+
+    if (vue.getFechaSalida().equals(fecha)) {
+        vuelosPorFecha.add(vue);
+    }
+
+    return buscarPorFecha_recursivo(fecha, posicion + 1, vuelosPorFecha);
+}
 
     //Mostrar vuelos
     public void mostrarTodos() {
