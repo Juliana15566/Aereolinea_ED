@@ -18,7 +18,7 @@ public class GestorPasajero {
     public void agregarPasajero(Pasajero pasajero) {
 
         // Validar que no exista otro pasajero con el mismo documento
-        if (buscarPorDocumento(pasajero.getpasaporte()) != null) {
+        if (buscarPorPasaporte(pasajero.getpasaporte()) != null) {
             System.out.println("Ya existe un pasajero con el pasaporte: " + pasajero.getpasaporte());
             return;
         }
@@ -28,7 +28,7 @@ public class GestorPasajero {
     }
 
     //busco al pasajero por el documento, tengo que validar el documento antes de mandarlo a buscar
-    public Pasajero buscarPorDocumento(String documento) {
+    public Pasajero buscarPorPasaporte(String documento) {
         for (Pasajero p : listaPasajeros) {
             if (p.getpasaporte().equals(documento)) {
                 return p;
