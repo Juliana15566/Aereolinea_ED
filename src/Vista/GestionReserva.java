@@ -2,8 +2,11 @@ package Vista;
 
 import java.util.Scanner;
 
+import Modelo.Accion;
 import Modelo.Historial;
 import Modelo.Pasajero;
+import Modelo.Registro;
+import Modelo.Reserva;
 import Modelo.Vuelo;
 import Controlador.GestorPasajero;
 import Controlador.GestorReserva;
@@ -80,11 +83,12 @@ public class GestionReserva {
             return;
         }
 
+        Reserva reserva = new Reserva(pasajero, vuelo, 1);
         boolean exito = gestorReserva.agregarReserva(pasajero, vuelo, 1);
         if (exito) {
-            historial.registrar("Reserva creada: " + pasajero.getNombre() + " en vuelo " + vuelo.getCodigo());
+            historial.registrar(new Registro(Accion.agregarReserva, reserva));
         } else {
-            historial.registrar("Pasajero en lista de espera: " + pasajero.getNombre() + " para vuelo " + vuelo.getCodigo());
+            historial.registrar(new Registro(Accion.agregarListaEspera, reserva));
         }
     }
     private static void cancelarReserva() {
@@ -92,9 +96,11 @@ public class GestionReserva {
         System.out.print("Código de la reserva: ");
         String codigoReserva = scanner.nextLine();
 
+        Reserva reserva = gestorReserva.buscarReservaPorCodigo(codigoReserva);
         boolean exito = gestorReserva.cancelarReserva(codigoReserva);
+        
         if (exito) {
-            historial.registrar("Reserva cancelada: " + codigoReserva);
+            historial.registrar(new Registro(Accion.cancelarReserva, reserva));
         }
     }
     private static void listarReservas() {

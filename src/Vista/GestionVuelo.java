@@ -5,17 +5,17 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import Controlador.GestorPasajero;
-import Controlador.GestorReserva;
+
 import Controlador.GestorVuelo;
+import Modelo.Accion;
 import Modelo.Historial;
+import Modelo.Registro;
 import Modelo.Vuelo;
 
 public class GestionVuelo {
 
-    private static GestorPasajero gestorPasajero = new GestorPasajero();
+
     private static GestorVuelo gestorVuelo = new GestorVuelo();
-    private static GestorReserva gestorReserva = new GestorReserva();
     private static Historial historial = new Historial();
 
     private static Scanner scanner = new Scanner(System.in);
@@ -91,7 +91,7 @@ public class GestionVuelo {
         try {
             Vuelo vuelo = new Vuelo(codigo, origen, destino, limite, horario, fecha);
             gestorVuelo.agregarVuelo(vuelo);
-            historial.registrar("Vuelo agregado: " + codigo + " (" + origen + " -> " + destino + ")");
+            historial.registrar(new Registro(Accion.agregarVuelo, vuelo));
         } catch (IllegalArgumentException e) {
             System.out.println(" Error: " + e.getMessage());
         }

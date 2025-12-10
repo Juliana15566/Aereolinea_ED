@@ -18,7 +18,7 @@ public class Vuelo {
     private LocalDate fechaSalida;  
     
     private List<Pasajero> listaPasajeros = new ArrayList<>();   // Confirmados
-    private Queue<Pasajero> listaEspera = new LinkedList<>();    // Lista de espera FIFO
+    private LinkedList<Pasajero> listaEspera = new LinkedList<>();    // Lista de espera FIFO
 
     //Constructor de la clase
     public Vuelo(String codigo, String origen, String destino,
@@ -135,6 +135,10 @@ public class Vuelo {
     // retirar de la lista de espera
     public Pasajero sacarDeListaEspera() {
         return listaEspera.poll();
+    }
+
+    public void volverAgregarALaListaDeEspera(Pasajero pasajero, int posicion) {
+        listaEspera.add(posicion, pasajero); // inserta al que regresa de la lista de pasajeros sin afectar los demas
     }
 
     //cantidad de puestos disponibles en el vuelo

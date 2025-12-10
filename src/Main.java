@@ -1,7 +1,8 @@
-import Modelo.Historial;
+//import Modelo.Historial;
 import Vista.GestionReserva;
 import Vista.GestionPasajero;
 import Vista.GestionVuelo;
+import Vista.GestionHistorico;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +10,9 @@ public class Main {
     private static GestionPasajero gestionPasajero = new GestionPasajero();
     private static GestionVuelo gestionVuelo = new GestionVuelo();
     private static GestionReserva gestionReserva = new GestionReserva();
-    private static Historial historial = new Historial();
+    private static GestionHistorico gestionHistorico = new GestionHistorico();
+
+    //private static Historial historial = new Historial();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -67,7 +70,7 @@ public class Main {
 
 
     private static void menuHistorial() {
-        historial.mostrarHistorial();
+        gestionHistorico.mostrarMenu();
         mostrarMenuPrincipal();
     }
 

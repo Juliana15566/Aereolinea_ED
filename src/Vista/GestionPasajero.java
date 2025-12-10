@@ -3,8 +3,10 @@ package Vista;
 import java.util.List;
 import java.util.Scanner;
 
+import Modelo.Accion;
 import Modelo.Historial;
 import Modelo.Pasajero;
+import Modelo.Registro;
 import Controlador.GestorPasajero;
 
 public class GestionPasajero {
@@ -66,7 +68,7 @@ public class GestionPasajero {
 
         Pasajero pasajero = new Pasajero(pasaporte, nombre);
         gestorPasajero.agregarPasajero(pasajero);
-        historial.registrar("Pasajero agregado: " + nombre + " (" + pasaporte + ")");
+        historial.registrar(new Registro(Accion.agregarPasajero, pasajero));
     }
 
     private static void buscarPasajeroPorPasaporte() {
