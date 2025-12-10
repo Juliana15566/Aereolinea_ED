@@ -1,6 +1,6 @@
 
 -----------------PASAJERO-------------------
-// Creo un pasajero individual
+{// Creo un pasajero individual
 Pasajero p1 = new Pasajero("111", "Ana");
 
 // Creo el gestor que guarda TODOS los pasajeros
@@ -8,6 +8,40 @@ GestorPasajeros gestor = new GestorPasajeros();
 
 // Le digo al gestor que guarde el pasajero creado
 gestor.agregarPasajero(p1);
+
+}
+
+
+{//para hacer una busqueda parcial
+
+public List<Pasajero> buscarPorNombre(String nombre) {
+    List<Pasajero> resultados = new ArrayList<>();
+
+    String textoBuscado = nombre.toLowerCase().trim();
+
+    for (Pasajero p : listaPasajeros) {
+        String nombrePasajero = p.getNombre().toLowerCase();
+
+        // Contiene el texto buscado
+        if (nombrePasajero.contains(textoBuscado)) {
+            resultados.add(p);
+        }
+    }
+
+    // Mostrar resultados
+    if (resultados.isEmpty()) {
+        System.out.println("❌ No se encontraron pasajeros con: " + nombre);
+    } else {
+        System.out.println("✔ Pasajeros encontrados con el nombre '" + nombre + "':");
+        for (Pasajero p : resultados) {
+            System.out.println(p);  // Muestra toda la info del pasajero
+        }
+    }
+
+    return resultados;
+}
+
+}
 
 
 -------------VUELO--------------------

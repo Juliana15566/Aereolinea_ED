@@ -3,6 +3,10 @@ package Modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Vuelo {
 
@@ -11,7 +15,10 @@ public class Vuelo {
     private String destino;
     private int limitePasajeros;
     private LocalTime horarioSalida;   
-    private LocalDate fechaSalida;     
+    private LocalDate fechaSalida;  
+    
+    private List<Pasajero> listaPasajeros = new ArrayList<>();   // Confirmados
+    private Queue<Pasajero> listaEspera = new LinkedList<>();    // Lista de espera FIFO
 
     //Constructor de la clase
     public Vuelo(String codigo, String origen, String destino,
@@ -49,6 +56,14 @@ public class Vuelo {
 
     public LocalDate getFechaSalida() { 
         return fechaSalida; 
+    }
+
+    public List<Pasajero> getListaPasajeros() { 
+        return listaPasajeros; 
+    }
+
+    public Queue<Pasajero> getListaEspera() { 
+        return listaEspera; 
     }
 
     // Setters (modificar el dato)
@@ -100,6 +115,31 @@ public class Vuelo {
                 "Formato de hora inválido. Debe ser HH:MM en formato militar. Ejemplo: 14:30"
             );
         }
+    }
+
+    // validar si aun hay cupo para saber si va a la lista de espera
+    public boolean hayCupo() {
+        return listaPasajeros.size() < limitePasajeros;
+    }
+
+    // lista de pasajeros confirmados
+    public void agregarPasajero(Pasajero p) {
+        listaPasajeros.add(p);
+    }
+
+    // lista de espera
+    public void agregarALaListaDeEspera(Pasajero p) {
+        listaEspera.add(p);
+    }
+
+    // retirar de la lista de espera
+    public Pasajero sacarDeListaEspera() {
+        return listaEspera.poll();
+    }
+
+    //cantidad de puestos disponibles en el vuelo
+    public int espaciosDisponibles() {
+        return limitePasajeros - listaPasajeros.size();
     }
 
     // @Override evita errores al sobrescribir métodos que ya existen en Java. Muestro la informacion del vuelo
