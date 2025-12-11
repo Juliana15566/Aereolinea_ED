@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-
+import Controlador.GestorPasajero;
 import Controlador.GestorVuelo;
 import Modelo.Accion;
 import Modelo.Historial;
@@ -15,10 +15,15 @@ import Modelo.Vuelo;
 public class GestionVuelo {
 
 
-    private static GestorVuelo gestorVuelo = new GestorVuelo();
-    private static Historial historial = new Historial();
+    private  GestorVuelo gestorVuelo;
+    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
+
+    public GestionVuelo (GestorVuelo gv,  Historial h) {
+        this.gestorVuelo = gv;
+        this.historial = h;
+    }
 
     private static int leerOpcion(String mensaje) {
         while (true) {
@@ -32,7 +37,7 @@ public class GestionVuelo {
         }
     }
 
-    public static void menuVuelos() {
+    public  void menuVuelos() {
         int opcion;
         do {
             System.out.println("GESTIÓN DE VUELOS");
@@ -74,7 +79,7 @@ public class GestionVuelo {
         } while (opcion != 0);
     }
 
-    private static void agregarVuelo() {
+    private  void agregarVuelo() {
         System.out.println("\n--- agregar vuelo ---");
         System.out.print("Código del vuelo: ");
         String codigo = scanner.nextLine();
@@ -97,7 +102,7 @@ public class GestionVuelo {
         }
     }
 
-    private static void buscarVueloPorCodigo() {
+    private  void buscarVueloPorCodigo() {
         System.out.println("\n--- BUSCAR VUELO POR CÓDIGO ---");
         System.out.print("Ingrese el código del vuelo: ");
         String codigo = scanner.nextLine();
@@ -112,7 +117,7 @@ public class GestionVuelo {
         }
     }
 
-    private static void buscarVuelosPorOrigen() {
+    private  void buscarVuelosPorOrigen() {
         System.out.println("\n--- buscar vuelos por origen ---");
         System.out.print("Ingrese el origen: ");
         String origen = scanner.nextLine();
@@ -121,7 +126,7 @@ public class GestionVuelo {
         mostrarListaVuelos(vuelos, "origen " + origen);
     }
 
-    private static void buscarVuelosPorDestino() {
+    private  void buscarVuelosPorDestino() {
         System.out.println("\n--- buscar vuelos por destino---");
         System.out.print("Ingrese el destino: ");
         String destino = scanner.nextLine();
@@ -130,7 +135,7 @@ public class GestionVuelo {
         mostrarListaVuelos(vuelos, "destino " + destino);
     }
 
-    private static void buscarVuelosPorFecha() {
+    private  void buscarVuelosPorFecha() {
         System.out.println("\n--- buscar vuelos por fecha ---");
         System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
         String fechaTexto = scanner.nextLine();
@@ -144,7 +149,7 @@ public class GestionVuelo {
         }
     }
 
-    private static void mostrarTodosLosVuelos() {
+    private  void mostrarTodosLosVuelos() {
         System.out.println("\n--- todos los vuelos ---");
         gestorVuelo.mostrarTodos();
     }

@@ -14,12 +14,19 @@ import Controlador.GestorVuelo;
 
 public class GestionReserva {
 
-    private static GestorPasajero gestorPasajero = new GestorPasajero();
-    private static GestorVuelo gestorVuelo = new GestorVuelo();
-    private static GestorReserva gestorReserva = new GestorReserva();
-    private static Historial historial = new Historial();
+    private GestorPasajero gestorPasajero;
+    private  GestorVuelo gestorVuelo;
+    private  GestorReserva gestorReserva;
+    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
+
+    public GestionReserva (GestorPasajero gp, GestorVuelo gv, GestorReserva gr, Historial h) {
+        this.gestorPasajero = gp;
+        this.gestorVuelo = gv;
+        this.gestorReserva = gr;
+        this.historial = h;
+    }
 
     private static int leerOpcion(String mensaje) {
         while (true) {
@@ -33,7 +40,7 @@ public class GestionReserva {
         }
     }
 
-    public static void menuReservas() {
+    public void menuReservas() {
         int opcion;
         do {
             System.out.println("\nGESTIÓN DE RESERVAS");
@@ -63,7 +70,7 @@ public class GestionReserva {
         } while (opcion != 0);
     }
 
-    private static void crearReserva() {
+    private void crearReserva() {
         System.out.println("\n--- crear reserva ---");
         System.out.print("Pasaporte del pasajero: ");
         String pasaporte = scanner.nextLine();
@@ -91,7 +98,7 @@ public class GestionReserva {
             historial.registrar(new Registro(Accion.agregarListaEspera, reserva));
         }
     }
-    private static void cancelarReserva() {
+    private void cancelarReserva() {
         System.out.println("\n--- cancelar reserva ---");
         System.out.print("Código de la reserva: ");
         String codigoReserva = scanner.nextLine();
@@ -103,7 +110,7 @@ public class GestionReserva {
             historial.registrar(new Registro(Accion.cancelarReserva, reserva));
         }
     }
-    private static void listarReservas() {
+    private void listarReservas() {
         System.out.println("\n--- reservas ---");
         gestorReserva.listarReservas();
     }

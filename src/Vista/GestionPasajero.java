@@ -11,10 +11,15 @@ import Controlador.GestorPasajero;
 
 public class GestionPasajero {
 
-    private static GestorPasajero gestorPasajero = new GestorPasajero();
-    private static Historial historial = new Historial();
+    private  GestorPasajero gestorPasajero;
+    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
+    
+    public GestionPasajero (GestorPasajero gp,  Historial h) {
+        this.gestorPasajero = gp;
+        this.historial = h;
+    }
 
     private static int leerOpcion(String mensaje) {
         while (true) {
@@ -28,7 +33,7 @@ public class GestionPasajero {
         }
     }
 
-    public static void menuPasajeros() {
+    public  void menuPasajeros() {
         int opcion;
         do {
             System.out.println("GESTIÓN DE PASAJEROS");
@@ -59,7 +64,7 @@ public class GestionPasajero {
 
         } while (opcion != 0);
     }
-    private static void agregarPasajero() {
+    private  void agregarPasajero() {
         System.out.println("\n--- AGREGAR PASAJERO ---");
         System.out.print("Pasaporte: ");
         String pasaporte = scanner.nextLine();
@@ -71,7 +76,7 @@ public class GestionPasajero {
         historial.registrar(new Registro(Accion.agregarPasajero, pasajero));
     }
 
-    private static void buscarPasajeroPorPasaporte() {
+    private  void buscarPasajeroPorPasaporte() {
         System.out.println("\n--- buscar pasajero por pasaporte ---");
         System.out.print("Ingrese el pasaporte: ");
         String pasaporte = scanner.nextLine();
@@ -85,7 +90,7 @@ public class GestionPasajero {
         }
     }
 
-    private static void buscarPasajeroPorNombre() {
+    private  void buscarPasajeroPorNombre() {
         System.out.println("\n--- buscar pasajero por nombre ---");
         System.out.print("Ingrese el nombre: ");
         String nombre = scanner.nextLine();
@@ -99,7 +104,7 @@ public class GestionPasajero {
         }
     }
 
-    private static void listaPasajeros() {
+    private  void listaPasajeros() {
         System.out.println("\n--- lista de pasajeros ---");
         List<Pasajero> pasajeros = gestorPasajero.getListaPasajeros();
         if (pasajeros.isEmpty()) {

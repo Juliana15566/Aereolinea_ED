@@ -1,23 +1,42 @@
-//import Modelo.Historial;
+import Modelo.Historial;
 import Vista.GestionReserva;
 import Vista.GestionPasajero;
 import Vista.GestionVuelo;
 import Vista.GestionHistorico;
+import Controlador.GestorPasajero;
+import Controlador.GestorReserva;
+import Controlador.GestorVuelo;
 import java.util.Scanner;
 
 public class Main {
 
-    private static GestionPasajero gestionPasajero = new GestionPasajero();
-    private static GestionVuelo gestionVuelo = new GestionVuelo();
-    private static GestionReserva gestionReserva = new GestionReserva();
-    private static GestionHistorico gestionHistorico = new GestionHistorico();
+    private Historial historial;
+    private GestorPasajero gestorPasajero;
+    private GestorVuelo gestorVuelo;
+    private GestorReserva gestorReserva;
 
-    //private static Historial historial = new Historial();
-    private static Scanner scanner = new Scanner(System.in);
+    private GestionPasajero gestionPasajero;
+    private GestionVuelo gestionVuelo;
+    private GestionReserva gestionReserva;
+    private GestionHistorico gestionHistorico;
 
-    public static void main(String[] args) {
+    private Scanner scanner = new Scanner(System.in);
+
+    // constructor: inicializa gestores y vistas
+    public Main() {
+        historial = new Historial();
+        gestorPasajero = new GestorPasajero(historial);
+        gestorVuelo = new GestorVuelo(historial);
+        gestorReserva = new GestorReserva(historial);
+
+        gestionPasajero = new GestionPasajero(gestorPasajero, historial);
+        gestionVuelo = new GestionVuelo(gestorVuelo, historial);
+        gestionReserva = new GestionReserva(gestorPasajero, gestorVuelo, gestorReserva, historial);
+        gestionHistorico = new GestionHistorico(historial);
+    }
+
+    public void menu() {
         int opcion;
-
         do {
             mostrarMenuPrincipal();
             opcion = leerOpcion("Seleccione una opción: ");
@@ -35,6 +54,9 @@ public class Main {
                 case 4:
                     menuHistorial();
                     break;
+                case 0:
+                    System.out.println("Saliendo...");
+                    break;
                 default:
                     System.out.println("Intente nuevamente.");
             }
@@ -42,6 +64,11 @@ public class Main {
         } while (opcion != 0);
 
         scanner.close();
+    }
+
+    public static void main(String[] args) {
+        Main app = new Main();
+        app.menu();
     }
 
     private static void mostrarMenuPrincipal() {
@@ -53,28 +80,28 @@ public class Main {
         System.out.println("0. Salir");
     }
 
-    private static void menuPasajeros() {
+    private  void menuPasajeros() {
         gestionPasajero.menuPasajeros();
         mostrarMenuPrincipal();
     }
 
-    private static void menuVuelos() {
+    private  void menuVuelos() {
         gestionVuelo.menuVuelos();
         mostrarMenuPrincipal();
     }
 
-    private static void menuReservas() {
+    private  void menuReservas() {
         gestionReserva.menuReservas();
         mostrarMenuPrincipal();
     }
 
 
-    private static void menuHistorial() {
+    private  void menuHistorial() {
         gestionHistorico.mostrarMenu();
         mostrarMenuPrincipal();
     }
 
-    private static int leerOpcion(String mensaje) {
+    private  int leerOpcion(String mensaje) {
         while (true) {
             try {
                 System.out.print(mensaje);

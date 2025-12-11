@@ -3,6 +3,9 @@ package Vista;
 import java.util.List;
 import java.util.Scanner;
 
+import Controlador.GestorPasajero;
+import Controlador.GestorReserva;
+import Controlador.GestorVuelo;
 import Modelo.Historial;
 import Modelo.Registro;
 
@@ -12,6 +15,10 @@ public class GestionHistorico {
     private static Historial historial = new Historial();
 
     private static Scanner scanner = new Scanner(System.in);
+
+    public GestionHistorico (Historial h) {
+        this.historial = h;
+    }
 
     private static int leerOpcion(String mensaje) {
         while (true) {
