@@ -35,7 +35,7 @@ public class MenuVuelo {
     public  void menuVuelos() {
         int opcion;
         do {
-            System.out.println("GESTIÓN DE VUELOS");
+            System.out.println("\n\nGESTIÓN DE VUELOS");
             System.out.println("1. Agregar Vuelo");
             System.out.println("2. Deshacer");
             System.out.println("3. Buscar Vuelo por Código");
@@ -110,7 +110,7 @@ public class MenuVuelo {
         System.out.print("Ingrese el código del vuelo: ");
         String codigo = scanner.nextLine();
 
-        Vuelo vuelo = gestorVuelo.buscarPorCodigo(codigo);
+        Vuelo vuelo = gestorVuelo.buscarPorCodigo_recursivo(codigo,0);
         if (vuelo != null) {
             System.out.println("Vuelo encontrado:");
             System.out.println(vuelo);

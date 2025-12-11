@@ -99,10 +99,10 @@ public class MenuPasajero {
         System.out.print("Ingrese el nombre: ");
         String nombre = scanner.nextLine();
 
-        Pasajero pasajero = (Pasajero) gestorPasajero.buscarPorNombre_recursivo(nombre, 0,null);
-        if (pasajero != null) {
+        List<Pasajero> coincidencias = gestorPasajero.buscarPorNombre_recursivo(nombre, 0, null);
+        if (coincidencias != null) {
             System.out.println("Pasajero encontrado:");
-            System.out.println(pasajero);
+            System.out.println(coincidencias);
         } else {
             System.out.println("No se encontró ningún pasajero.");
         }

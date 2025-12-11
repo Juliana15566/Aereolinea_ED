@@ -112,7 +112,7 @@ public class Vuelo {
             return LocalTime.parse(horaTexto);  
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(
-                "Formato de hora inválido. Debe ser HH:MM en formato militar. Ejemplo: 14:30"
+                "Formato de hora inválido. Debe ser HH:MM en formato militar. Ejemplo: 14:30 o 08:15"
             );
         }
     }

@@ -40,7 +40,7 @@ public class GestorReserva {
             return true;
         } else {
             agregarListaEspera(reserva);
-            System.out.println("Vuelo lleno. Pasajero agregado a lista de espera: " + pasajero.getNombre());
+            //System.out.println("Vuelo lleno. Pasajero agregado a lista de espera: " + pasajero.getNombre());
             return false;
         }
     }
@@ -75,7 +75,7 @@ public class GestorReserva {
         }
 
         // SOLO se permite undo si la acción fue agregarReserva
-        if (ultimo.tipo != Accion.agregarReserva || ultimo.tipo != Accion.cancelarReserva) {
+        if (ultimo.tipo != Accion.agregarReserva || ultimo.tipo != Accion.cancelarReserva || ultimo.tipo != Accion.sacarDeListaEspera) {
             System.out.println("La última acción no es de reserva. No se puede deshacer aquí.");
             return;
         }
@@ -137,8 +137,9 @@ public class GestorReserva {
         if (pasajero != null) { //Si hay personas en la lista de espera
             Reserva r = buscarReservaPorPasajeroYVuelo(pasajero, vuelo); //vuscar la reserva del vuelo y el pasajero
             if (r != null) { //Si existe la reserva del pasajero en el vuelo
-                vuelo.agregarPasajero(pasajero); //Agregarlo a la lista de pasajeros
+                //vuelo.agregarPasajero(pasajero); //Agregarlo a la lista de pasajeros
                 System.out.println("Promovido de lista de espera a pasajero confirmado: " + pasajero.getNombre());
+                agregarReservaConfirmada(r);
                 return r;
             }
         }

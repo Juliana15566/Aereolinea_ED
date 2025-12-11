@@ -88,10 +88,11 @@ public class GestorPasajero {
     }
 
     public Pasajero buscarPorPasaporte_recursivo(String pasaporte, int posicion) {
-        Pasajero pas = listaPasajeros.get(posicion);
+        
         if (posicion >= listaPasajeros.size()) { //Si se sale del tamaño de la lista de pasajeros
             return null;
         }
+        Pasajero pas = listaPasajeros.get(posicion);
         if (pas.getpasaporte().equals(pasaporte)) { //si lo encuentra
             return pas;
         }
@@ -109,16 +110,22 @@ public class GestorPasajero {
     }
 
     public List<Pasajero> buscarPorNombre_recursivo(String nombre, int posicion, List<Pasajero> pasajerosPorNombre) {
-        Pasajero pas = listaPasajeros.get(posicion);
-        if (posicion >= listaPasajeros.size()) { //Si se sale del tamaño de la lista de pasajeros
-            return pasajerosPorNombre;
-        }
-        if (pas.getNombre().toLowerCase().contains(nombre.toLowerCase())) { //si lo encuentra
-            pasajerosPorNombre.add(pas);
-        }
-
-        return buscarPorNombre_recursivo(nombre, posicion + 1, pasajerosPorNombre); //buscar en una nueva posicions
+    
+    if (pasajerosPorNombre == null) {
+        pasajerosPorNombre = new ArrayList<>();
     }
+    // PRIMERO validar límites
+    if (posicion >= listaPasajeros.size()) {
+        return pasajerosPorNombre;
+    }
+    Pasajero pas = listaPasajeros.get(posicion);
+
+    if (pas.getNombre() != null && pas.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
+        pasajerosPorNombre.add(pas);
+    }
+
+    return buscarPorNombre_recursivo(nombre, posicion + 1, pasajerosPorNombre);
+}
 
 
     //retorno la lista de pasajeros
