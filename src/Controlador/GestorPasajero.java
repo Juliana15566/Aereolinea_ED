@@ -40,13 +40,40 @@ public class GestorPasajero {
         historial.registrar(new Registro(Accion.agregarPasajero, pasajero)); //Se registra en el historico
     }
 
-    public void retirarPasajero(Pasajero pasajero) { // Retirar pasajero, se usa el undo de la pila
-        listaPasajeros.remove(pasajero);
-        System.out.println("Pasajero retirado correctamente: " + pasajero.getNombre());
+    // public void retirarPasajero(Pasajero pasajero) { // Retirar pasajero, se usa el undo de la pila
+    //     listaPasajeros.remove(pasajero);
+    //     System.out.println("Pasajero retirado correctamente: " + pasajero.getNombre());
 
-        // Registrar en historial
-        historial.registrarUndo(new Registro(Accion.retirarPasajero, pasajero));
+    //     // Registrar en historial
+    //     historial.registrarUndo(new Registro(Accion.retirarPasajero, pasajero));
+    // }
+
+    public void retirarPasajero() {
+
+        Registro ultimo = historial.obtenerUltimo();
+
+        if (ultimo == null) {
+            System.out.println("No hay acciones para deshacer.");
+            return;
+        }
+
+        // SOLO se permite undo si la acción fue agregarPasajero
+        if (ultimo.tipo != Accion.agregarPasajero) {
+            System.out.println("La última acción no es de pasajero. No se puede deshacer aquí.");
+            return;
+        }
+
+        Registro reserva = historial.deshacer(); // Retirr de los registros la insercion del pasajero
+        Pasajero pas = (Pasajero) reserva.objeto; //traer al pasajero que se retiro
+        listaPasajeros.remove(pas); //REtirara al pasajero de la lista de pasajeros
+
+        System.out.println("deshacer: Se retiró un pasajero " + pas.getNombre());
+
+        // Registrar SOLO en el log
+        historial.registrarUndo(new Registro(Accion.retirarPasajero, pas));
     }
+
+    
 
     //busco al pasajero por el pasaporte, tengo que validar el documento antes de mandarlo a buscar
     public Pasajero buscarPorPasaporte(String pasaporte) {

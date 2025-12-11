@@ -3,20 +3,18 @@ package Vista;
 import java.util.List;
 import java.util.Scanner;
 
-import Controlador.GestorPasajero;
-import Controlador.GestorReserva;
-import Controlador.GestorVuelo;
+
 import Modelo.Historial;
 import Modelo.Registro;
 
-public class GestionHistorico {
+public class MenuHistorico {
 
     
-    private static Historial historial = new Historial();
+    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public GestionHistorico (Historial h) {
+    public MenuHistorico (Historial h) {
         this.historial = h;
     }
 
@@ -36,7 +34,7 @@ public class GestionHistorico {
         int opcion;
         do {
             System.out.println("\n--- MENÚ HISTORIAL ---");
-            System.out.println("1. Mostrar histórico sin registrar los deshacer");
+            System.out.println("1. Mostrar histórico Registros (pasajeros, vuelos, reservas)");
             System.out.println("2. Mostrar log completo");
             System.out.println("3. Volver al menú principal");
             System.out.println("0. Salir");

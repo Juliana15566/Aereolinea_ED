@@ -38,11 +38,39 @@ public class GestorVuelo {
         historial.registrar(new Registro(Accion.agregarVuelo, vuelo)); //Se registra en el historico
     }
 
-    public void retirarVuelo(Vuelo vuelo) {
-        listaVuelos.remove(vuelo);
-        System.out.println("Vuelo retirado correctamente: " + vuelo.getCodigo());
+    // public void retirarVuelo(Vuelo vuelo) {
+    //     listaVuelos.remove(vuelo);
+    //     System.out.println("Vuelo retirado correctamente: " + vuelo.getCodigo());
 
-        historial.registrarUndo(new Registro(Accion.retirarVuelo, vuelo));// Registrar en historial
+    //     historial.registrarUndo(new Registro(Accion.retirarVuelo, vuelo));// Registrar en historial
+    // }
+
+    public void retirarVuelo() {
+
+        Registro ultimo = historial.obtenerUltimo();
+
+        if (ultimo == null) {
+            System.out.println("No hay acciones para deshacer.");
+            return;
+        }
+
+        // SOLO se permite undo si la acción fue agregarVuelo
+        if (ultimo.tipo != Accion.agregarVuelo) {
+            System.out.println("La última acción no es de vuelo. No se puede deshacer aquí.");
+            return;
+        }
+
+        // Sacar el registro real de la pila
+        Registro reserva = historial.deshacer();  
+        Vuelo vuelo = (Vuelo) reserva.objeto;
+
+        // Retirar vuelo de la lista
+        listaVuelos.remove(vuelo);
+
+        System.out.println("deshacer: Se retiró el vuelo " + vuelo.getCodigo());
+
+        // Registrar SOLO en el log (no en la pila)
+        historial.registrarUndo(new Registro(Accion.retirarVuelo, vuelo));
     }
 
     //Buscar vuelo por codigo, recordar hacer un upper en el parametro enviado a buscar

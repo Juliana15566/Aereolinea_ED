@@ -5,24 +5,19 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import Controlador.GestorPasajero;
+
 import Controlador.GestorVuelo;
-import Modelo.Accion;
-import Modelo.Historial;
-import Modelo.Registro;
 import Modelo.Vuelo;
 
-public class GestionVuelo {
+public class MenuVuelo {
 
 
     private  GestorVuelo gestorVuelo;
-    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public GestionVuelo (GestorVuelo gv,  Historial h) {
+    public MenuVuelo (GestorVuelo gv) {
         this.gestorVuelo = gv;
-        this.historial = h;
     }
 
     private static int leerOpcion(String mensaje) {
@@ -42,11 +37,12 @@ public class GestionVuelo {
         do {
             System.out.println("GESTIÓN DE VUELOS");
             System.out.println("1. Agregar Vuelo");
-            System.out.println("2. Buscar Vuelo por Código");
-            System.out.println("3. Buscar Vuelos por Origen");
-            System.out.println("4. Buscar Vuelos por Destino");
-            System.out.println("5. Buscar Vuelos por Fecha de Salida");
-            System.out.println("6. Mostrar Todos los Vuelos");
+            System.out.println("2. Deshacer");
+            System.out.println("3. Buscar Vuelo por Código");
+            System.out.println("4. Buscar Vuelos por Origen");
+            System.out.println("5. Buscar Vuelos por Destino");
+            System.out.println("6. Buscar Vuelos por Fecha de Salida");
+            System.out.println("7. Mostrar Todos los Vuelos");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerOpcion("Seleccione una opción: ");
@@ -56,18 +52,21 @@ public class GestionVuelo {
                     agregarVuelo();
                     break;
                 case 2:
-                    buscarVueloPorCodigo();
+                    retirarVuelo();
                     break;
                 case 3:
-                    buscarVuelosPorOrigen();
+                    buscarVueloPorCodigo();
                     break;
                 case 4:
-                    buscarVuelosPorDestino();
+                    buscarVuelosPorOrigen();
                     break;
                 case 5:
-                    buscarVuelosPorFecha();
+                    buscarVuelosPorDestino();
                     break;
                 case 6:
+                    buscarVuelosPorFecha();
+                    break;
+                case 7:
                     mostrarTodosLosVuelos();
                     break;
                 case 0:
@@ -96,10 +95,14 @@ public class GestionVuelo {
         try {
             Vuelo vuelo = new Vuelo(codigo, origen, destino, limite, horario, fecha);
             gestorVuelo.agregarVuelo(vuelo);
-            historial.registrar(new Registro(Accion.agregarVuelo, vuelo));
+            //historial.registrar(new Registro(Accion.agregarVuelo, vuelo));
         } catch (IllegalArgumentException e) {
             System.out.println(" Error: " + e.getMessage());
         }
+    }
+    private  void retirarVuelo() {
+        System.out.println("\n--- DESHACER REGISTRO VUELO ---");
+        gestorVuelo.retirarVuelo();
     }
 
     private  void buscarVueloPorCodigo() {

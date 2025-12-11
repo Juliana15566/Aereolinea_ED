@@ -67,8 +67,16 @@ public class GestorReserva {
     }
 
     public void deshacer() {
-        if (!historial.hayAcciones()) { // Si hay acciones para deshacer
+        Registro ultimo = historial.obtenerUltimo();
+
+        if (ultimo == null) {
             System.out.println("No hay acciones para deshacer.");
+            return;
+        }
+
+        // SOLO se permite undo si la acción fue agregarReserva
+        if (ultimo.tipo != Accion.agregarReserva || ultimo.tipo != Accion.cancelarReserva) {
+            System.out.println("La última acción no es de reserva. No se puede deshacer aquí.");
             return;
         }
 

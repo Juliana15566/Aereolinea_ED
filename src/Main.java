@@ -1,8 +1,8 @@
 import Modelo.Historial;
-import Vista.GestionReserva;
-import Vista.GestionPasajero;
-import Vista.GestionVuelo;
-import Vista.GestionHistorico;
+import Vista.MenuReserva;
+import Vista.MenuPasajero;
+import Vista.MenuVuelo;
+import Vista.MenuHistorico;
 import Controlador.GestorPasajero;
 import Controlador.GestorReserva;
 import Controlador.GestorVuelo;
@@ -15,10 +15,10 @@ public class Main {
     private GestorVuelo gestorVuelo;
     private GestorReserva gestorReserva;
 
-    private GestionPasajero gestionPasajero;
-    private GestionVuelo gestionVuelo;
-    private GestionReserva gestionReserva;
-    private GestionHistorico gestionHistorico;
+    private MenuPasajero gestionPasajero;
+    private MenuVuelo gestionVuelo;
+    private MenuReserva gestionReserva;
+    private MenuHistorico gestionHistorico;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -29,10 +29,10 @@ public class Main {
         gestorVuelo = new GestorVuelo(historial);
         gestorReserva = new GestorReserva(historial);
 
-        gestionPasajero = new GestionPasajero(gestorPasajero, historial);
-        gestionVuelo = new GestionVuelo(gestorVuelo, historial);
-        gestionReserva = new GestionReserva(gestorPasajero, gestorVuelo, gestorReserva, historial);
-        gestionHistorico = new GestionHistorico(historial);
+        gestionPasajero = new MenuPasajero(gestorPasajero);
+        gestionVuelo = new MenuVuelo(gestorVuelo);
+        gestionReserva = new MenuReserva(gestorPasajero, gestorVuelo, gestorReserva, historial);
+        gestionHistorico = new MenuHistorico(historial);
     }
 
     public void menu() {
@@ -76,7 +76,7 @@ public class Main {
         System.out.println("1. Gestión de Pasajeros");
         System.out.println("2. Gestión de Vuelos");
         System.out.println("3. Gestión de Reservas");
-        System.out.println("4. Historial");
+        System.out.println("4. Revisar Historial");
         System.out.println("0. Salir");
     }
 

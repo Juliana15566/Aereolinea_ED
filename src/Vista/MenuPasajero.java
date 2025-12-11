@@ -3,22 +3,17 @@ package Vista;
 import java.util.List;
 import java.util.Scanner;
 
-import Modelo.Accion;
-import Modelo.Historial;
 import Modelo.Pasajero;
-import Modelo.Registro;
 import Controlador.GestorPasajero;
 
-public class GestionPasajero {
+public class MenuPasajero {
 
     private  GestorPasajero gestorPasajero;
-    private  Historial historial;
 
     private static Scanner scanner = new Scanner(System.in);
     
-    public GestionPasajero (GestorPasajero gp,  Historial h) {
+    public MenuPasajero (GestorPasajero gp) {
         this.gestorPasajero = gp;
-        this.historial = h;
     }
 
     private static int leerOpcion(String mensaje) {
@@ -36,11 +31,12 @@ public class GestionPasajero {
     public  void menuPasajeros() {
         int opcion;
         do {
-            System.out.println("GESTIÓN DE PASAJEROS");
+            System.out.println("\n\nGESTIÓN DE PASAJEROS");
             System.out.println("1. Agregar Pasajero");
-            System.out.println("2. Buscar Pasajero por Pasaporte");
-            System.out.println("3. Buscar Pasajero por Nombre");
-            System.out.println("4. Listar Todos los Pasajeros");
+            System.out.println("2. Deshacer");
+            System.out.println("3. Buscar Pasajero por Pasaporte");
+            System.out.println("4. Buscar Pasajero por Nombre");
+            System.out.println("5. Listar Todos los Pasajeros");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerOpcion("Seleccione una opción: ");
@@ -50,12 +46,15 @@ public class GestionPasajero {
                     agregarPasajero();
                     break;
                 case 2:
-                    buscarPasajeroPorPasaporte();
+                    retirarPasajero();
                     break;
                 case 3:
-                    buscarPasajeroPorNombre();
+                    buscarPasajeroPorPasaporte();
                     break;
                 case 4:
+                    buscarPasajeroPorNombre();
+                    break;
+                case 5:
                     listaPasajeros();
                     break;
                 default:
@@ -73,7 +72,12 @@ public class GestionPasajero {
 
         Pasajero pasajero = new Pasajero(pasaporte, nombre);
         gestorPasajero.agregarPasajero(pasajero);
-        historial.registrar(new Registro(Accion.agregarPasajero, pasajero));
+        //historial.registrar(new Registro(Accion.agregarPasajero, pasajero));
+    }
+
+    private  void retirarPasajero() {
+        System.out.println("\n--- DESHACER REGISTRO PASAJERO ---");
+        gestorPasajero.retirarPasajero();
     }
 
     private  void buscarPasajeroPorPasaporte() {

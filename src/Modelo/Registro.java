@@ -4,6 +4,7 @@ public class Registro {//Acciones que se vana ir registrando en la pila
         public int tipo;                // qué acción se realizo
         public Object objeto;           // Objeto involucrado
         public int posicion;            // para la lista de espera
+        public Object datoPrevio;       //Guardar la accion anterior
 
 
         public Registro(int tipo, Object objeto) { // contructor para los casos de agregar o retirar

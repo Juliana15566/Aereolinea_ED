@@ -12,7 +12,7 @@ import Controlador.GestorPasajero;
 import Controlador.GestorReserva;
 import Controlador.GestorVuelo;
 
-public class GestionReserva {
+public class MenuReserva {
 
     private GestorPasajero gestorPasajero;
     private  GestorVuelo gestorVuelo;
@@ -21,7 +21,7 @@ public class GestionReserva {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public GestionReserva (GestorPasajero gp, GestorVuelo gv, GestorReserva gr, Historial h) {
+    public MenuReserva (GestorPasajero gp, GestorVuelo gv, GestorReserva gr, Historial h) {
         this.gestorPasajero = gp;
         this.gestorVuelo = gv;
         this.gestorReserva = gr;
@@ -46,7 +46,8 @@ public class GestionReserva {
             System.out.println("\nGESTIÓN DE RESERVAS");
             System.out.println("1. Crear Reserva");
             System.out.println("2. Cancelar Reserva");
-            System.out.println("3. Listar Todas las Reservas");
+            System.out.println("3. Deshacer");
+            System.out.println("4. Listar Todas las Reservas");
             System.out.println("0. Volver al Menú Principal");
 
             opcion = leerOpcion("Seleccione una opción: ");
@@ -59,6 +60,9 @@ public class GestionReserva {
                     cancelarReserva();
                     break;
                 case 3:
+                    deshacerAccionReserva();
+                    break;
+                case 4:
                     listarReservas();
                     break;
                 case 0:
@@ -109,6 +113,10 @@ public class GestionReserva {
         if (exito) {
             historial.registrar(new Registro(Accion.cancelarReserva, reserva));
         }
+    }
+    private  void deshacerAccionReserva() {
+        System.out.println("\n--- DESHACER ACCION EN RESERVA ---");
+        gestorReserva.deshacer();
     }
     private void listarReservas() {
         System.out.println("\n--- reservas ---");

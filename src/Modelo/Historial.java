@@ -21,7 +21,6 @@ public class Historial {
         agregarLog(registro);
     }
     public void registrarUndo(Registro registro) { //Registrar las acciones en el historico y en el log
-        pila.pop();
         agregarLog(registro);
     }
 
@@ -79,9 +78,9 @@ public class Historial {
         return log;
     }
     
-    public boolean hayAcciones() { // Verificar si hay acciones
-        return !pila.isEmpty();
-    }
+    // public boolean hayAcciones() { // Verificar si hay acciones
+    //     return !pila.isEmpty();
+    // }
 
     
     public Registro deshacer() { // Devuelve la accion a deshacer
@@ -90,6 +89,11 @@ public class Historial {
         }
         return null;
     }
+
+    public Registro obtenerUltimo() {
+    if (pila.isEmpty()) return null;
+    return pila.peek();
+}
 
     public List<Registro> obtenerHistorico() {
         return new ArrayList<>(pila); // devolvemos la pila
