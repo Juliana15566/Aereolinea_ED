@@ -87,7 +87,7 @@ public class MenuVuelo {
         System.out.print("Destino: ");
         String destino = scanner.nextLine();
         int limite = leerOpcion("Límite de pasajeros: ");
-        System.out.print("Horario de salida  ");
+        System.out.print("Horario de salida (formato militar 14:30 o 08:15) ");
         String horario = scanner.nextLine();
         System.out.print("Fecha de salida (YYYY-MM-DD: ");
         String fecha = scanner.nextLine();
